@@ -15,7 +15,7 @@ namespace EntityProject
 
         public override string ToString()
         {
-            return "Produto: " + this.Nome;
+            return $"Produto: {this.Id}, {this.Nome}, {this.Categoria}, {this.Preco}";
         }
     }
 }
