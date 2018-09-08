@@ -8,29 +8,39 @@ namespace EntityProject
 {
     class ProdutoDAOEntity : IProdutoDAO, IDisposable
     {
+        private LojaContext contexto;
+
+        public ProdutoDAOEntity()
+        {
+            this.contexto = new LojaContext();
+        }
+
         public void Dispose()
         {
-            throw new NotImplementedException();
+            contexto.Dispose();
         }
 
         public void Adicionar(Produto p)
         {
-            throw new NotImplementedException();
+            contexto.Produtos.Add(p);
+            contexto.SaveChanges();
         }
 
         public void Atualizar(Produto p)
         {
-            throw new NotImplementedException();
+            contexto.Update(p);
+            contexto.SaveChanges();
         }
 
         public IList<Produto> Produtos()
         {
-            throw new NotImplementedException();
+            return contexto.Produtos.ToList();
         }
 
         public void Remover(Produto p)
         {
-            throw new NotImplementedException();
+            contexto.Produtos.Remove(p);
+            contexto.SaveChanges();
         }
     }
 }
