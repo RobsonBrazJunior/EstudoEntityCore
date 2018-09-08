@@ -18,26 +18,26 @@ namespace EntityProject
                     Console.WriteLine(p);
                 }
 
-                Console.WriteLine("======================");
-                foreach(var e in contexto.ChangeTracker.Entries())
+                Console.WriteLine("================");
+                foreach (var e in contexto.ChangeTracker.Entries())
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.State);
                 }
 
                 var p1 = produtos.Last();
-                p1.Nome = "Animais Fantáticos e Onde Habitam";
+                p1.Nome = "Pacifc Rim";
 
-                Console.WriteLine("======================");
+                Console.WriteLine("================");
                 foreach (var e in contexto.ChangeTracker.Entries())
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.State);
                 }
 
                 //contexto.SaveChanges();
 
-                //Console.WriteLine("====================");
+                //Console.WriteLine("================");
                 //produtos = contexto.Produtos.ToList();
-                //foreach(var p in produtos)
+                //foreach (var p in produtos)
                 //{
                 //    Console.WriteLine(p);
                 //}
