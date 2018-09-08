@@ -14,44 +14,7 @@ namespace EntityProject
     {
         static void Main(string[] args)
         {
-            using (var contexto = new LojaContext())
-            {
-                var serviceProvider = contexto.GetInfrastructure<IServiceProvider>();
-                var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
-                loggerFactory.AddProvider(SqlLoggerProvider.Create());
 
-                var produtos = contexto.Produtos.ToList();
-
-                ExibeEntries(contexto.ChangeTracker.Entries());
-
-                var novoProduto = new Produto()
-                {
-                    Nome = "Sabão em pó",
-                    Categoria = "Limpeza",
-                    Preco = 4.99
-                };
-                contexto.Produtos.Add(novoProduto);
-
-                ExibeEntries(contexto.ChangeTracker.Entries());
-
-                contexto.Produtos.Remove(novoProduto);
-
-                ExibeEntries(contexto.ChangeTracker.Entries());
-
-                //contexto.SaveChanges();
-
-                var entry = contexto.Entry(novoProduto);
-                Console.WriteLine("\n\n" + entry.Entity.ToString() + " - " + entry.State);
-            }
-        }
-
-        private static void ExibeEntries(IEnumerable<EntityEntry> entries)
-        {
-            Console.WriteLine("================");
-            foreach (var e in entries)
-            {
-                Console.WriteLine(e.Entity.ToString() + " - " + e.State);
-            }
         }
     }
 }
