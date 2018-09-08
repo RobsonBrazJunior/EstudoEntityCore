@@ -25,34 +25,32 @@ namespace EntityProject
             RecuperarProdutos();
 
             //atualizar o produto
-            using (var repo = new LojaContext())
+            using (var repo = new ProdutoDAOEntity())
             {
-                Produto primeiroProduto = repo.Produtos.First();
+                Produto primeiroProduto = repo.Produtos().First();
                 primeiroProduto.Nome = "Cassino Royale - Versão do Diretor";
-                repo.Produtos.Update(primeiroProduto);
-                repo.SaveChanges();
+                repo.Atualizar(primeiroProduto);
             }
             RecuperarProdutos();
         }
 
         private static void ExccluirProduto()
         {
-            using (var repo = new LojaContext())
+            using (var repo = new ProdutoDAOEntity())
             {
-                IList<Produto> produtos = repo.Produtos.ToList();
+                IList<Produto> produtos = repo.Produtos();
                 foreach (var item in produtos)
                 {
-                    repo.Produtos.Remove(item);
+                    repo.Remover(item);
                 }
-                repo.SaveChanges();
             }
         }
 
         private static void RecuperarProdutos()
         {
-            using (var repo = new LojaContext())
+            using (var repo = new ProdutoDAOEntity())
             {
-                IList<Produto> produtos = repo.Produtos.ToList();
+                IList<Produto> produtos = repo.Produtos();
                 Console.WriteLine("Foram encontrados {0} produto(s).", produtos.Count);
                 foreach (var item in produtos)
                 {
@@ -68,10 +66,9 @@ namespace EntityProject
             p.Categoria = "Filmes";
             p.Preco = 11.50;
 
-            using (var contexto = new LojaContext())
+            using (var contexto = new ProdutoDAOEntity())
             {
-                contexto.Produtos.Add(p);
-                contexto.SaveChanges();
+                contexto.Adicionar(p);
             }
         }
 
