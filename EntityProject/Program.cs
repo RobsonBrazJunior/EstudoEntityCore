@@ -12,8 +12,26 @@ namespace EntityProject
         {
             //GravarUsandoAdoNet();
             //GravarUsandoEntity();
+            //RecuperarProdutos();
+            //ExccluirProduto();
+            //RecuperarProdutos();
+            AtualizarProduto();
+        }
+
+        private static void AtualizarProduto()
+        {
+            // incluir produto
+            GravarUsandoEntity();
             RecuperarProdutos();
-            ExccluirProduto();
+
+            //atualizar o produto
+            using (var repo = new LojaContext())
+            {
+                Produto primeiroProduto = repo.Produtos.First();
+                primeiroProduto.Nome = "Cassino Royale - Versão do Diretor";
+                repo.Produtos.Update(primeiroProduto);
+                repo.SaveChanges();
+            }
             RecuperarProdutos();
         }
 
@@ -46,9 +64,9 @@ namespace EntityProject
         private static void GravarUsandoEntity()
         {
             Produto p = new Produto();
-            p.Nome = "Harry Potter e a Ordem da Fênix";
-            p.Categoria = "Livros";
-            p.Preco = 19.89;
+            p.Nome = "Cassino Roayle";
+            p.Categoria = "Filmes";
+            p.Preco = 11.50;
 
             using (var contexto = new LojaContext())
             {
