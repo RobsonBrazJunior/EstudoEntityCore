@@ -10,78 +10,37 @@ namespace EntityProject
     {
         static void Main(string[] args)
         {
-            //GravarUsandoAdoNet();
-            //GravarUsandoEntity();
-            //RecuperarProdutos();
-            //ExccluirProduto();
-            //RecuperarProdutos();
-            AtualizarProduto();
-        }
-
-        private static void AtualizarProduto()
-        {
-            // incluir produto
-            GravarUsandoEntity();
-            RecuperarProdutos();
-
-            //atualizar o produto
-            using (var repo = new ProdutoDAOEntity())
+            using (var contexto = new LojaContext())
             {
-                Produto primeiroProduto = repo.Produtos().First();
-                primeiroProduto.Nome = "Cassino Royale - Versão do Diretor";
-                repo.Atualizar(primeiroProduto);
-            }
-            RecuperarProdutos();
-        }
-
-        private static void ExccluirProduto()
-        {
-            using (var repo = new ProdutoDAOEntity())
-            {
-                IList<Produto> produtos = repo.Produtos();
-                foreach (var item in produtos)
+                var produtos = contexto.Produtos.ToList();
+                foreach (var p in produtos)
                 {
-                    repo.Remover(item);
+                    Console.WriteLine(p);
                 }
-            }
-        }
 
-        private static void RecuperarProdutos()
-        {
-            using (var repo = new ProdutoDAOEntity())
-            {
-                IList<Produto> produtos = repo.Produtos();
-                Console.WriteLine("Foram encontrados {0} produto(s).", produtos.Count);
-                foreach (var item in produtos)
+                Console.WriteLine("======================");
+                foreach(var e in contexto.ChangeTracker.Entries())
                 {
-                    Console.WriteLine(item.Nome);
+                    Console.WriteLine(e);
                 }
-            }
-        }
 
-        private static void GravarUsandoEntity()
-        {
-            Produto p = new Produto();
-            p.Nome = "Cassino Roayle";
-            p.Categoria = "Filmes";
-            p.Preco = 11.50;
+                var p1 = produtos.Last();
+                p1.Nome = "Animais Fantáticos e Onde Habitam";
 
-            using (var contexto = new ProdutoDAOEntity())
-            {
-                contexto.Adicionar(p);
-            }
-        }
+                Console.WriteLine("======================");
+                foreach (var e in contexto.ChangeTracker.Entries())
+                {
+                    Console.WriteLine(e);
+                }
 
-        private static void GravarUsandoAdoNet()
-        {
-            Produto p = new Produto();
-            p.Nome = "Harry Potter e a Ordem da Fênix";
-            p.Categoria = "Livros";
-            p.Preco = 19.89;
+                //contexto.SaveChanges();
 
-            using (var repo = new ProdutoDAO())
-            {
-                repo.Adicionar(p);
+                //Console.WriteLine("====================");
+                //produtos = contexto.Produtos.ToList();
+                //foreach(var p in produtos)
+                //{
+                //    Console.WriteLine(p);
+                //}
             }
         }
     }
