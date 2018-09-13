@@ -1,0 +1,13 @@
+﻿namespace EntityProject
+{
+    internal class Compra
+    {
+        public Compra()
+        {
+        }
+
+        public Produto Produto { get; internal set; }
+        public int Quantidade { get; internal set; }
+        public double Preco { get; internal set; }
+    }
+}
