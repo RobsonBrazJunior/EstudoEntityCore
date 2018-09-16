@@ -6,6 +6,7 @@ namespace EntityProject
     public class LojaContext : DbContext
     {
         public DbSet<Produto> Produtos { get; set; }
+        private DbSet<Compra> Compras { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
