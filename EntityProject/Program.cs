@@ -25,6 +25,27 @@ namespace EntityProject
             compra.Quantidade = 6;
             compra.Produto = paoFrances;
             compra.Preco = paoFrances.PrecoUnitario * compra.Quantidade;
+
+            using (var contexto = new LojaContext())
+            {
+                var serviceProvider = contexto.GetInfrastructure<IServiceProvider>();
+                var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
+                loggerFactory.AddProvider(SqlLoggerProvider.Create());
+
+                contexto.Compras.Add(compra);
+
+                ExibeEntries(contexto.ChangeTracker.Entries());
+
+                contexto.SaveChanges();
+            }
+        }
+
+        private static void ExibeEntries(IEnumerable<EntityEntry> entries)
+        {
+            foreach (var e in entries)
+            {
+                Console.WriteLine(e.Entity.ToString() + " - " + e.State);
+            }
         }
     }
 }

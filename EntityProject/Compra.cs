@@ -1,6 +1,6 @@
 ﻿namespace EntityProject
 {
-    internal class Compra
+    public class Compra
     {
         public int Id { get; set; }
         public int ProdutoId { get; set; }
