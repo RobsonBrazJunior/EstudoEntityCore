@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace EntityProject
 {
@@ -13,6 +9,7 @@ namespace EntityProject
         public string Categoria { get; internal set; }
         public double PrecoUnitario { get; internal set; }
         public string Unidade { get; set; }
+        public IList<PromocaoProduto> Promocoes { get; set; }
 
         public override string ToString()
         {
