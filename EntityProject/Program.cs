@@ -14,6 +14,26 @@ namespace EntityProject
     {
         static void Main(string[] args)
         {
+            var cliente = new Cliente();
+            cliente.Nome = "Fulano de tal";
+            cliente.EnderecoDeEntrega = new Endereco()
+            {
+                Numero = 12,
+                Logadouro = "Rua A",
+                Complemento = "Ap 02",
+                Bairro = "Centro",
+                Cidade = "Cidade"
+            };
+            
+            using (var contexto = new LojaContext())
+            {
+                contexto.Clientes.Add(cliente);
+                contexto.SaveChanges();
+            }
+        }
+
+        private static void MuitosParaMuitos()
+        {
             var p1 = new Produto()
             {
                 Nome = "Suco de Laranja",
@@ -29,7 +49,7 @@ namespace EntityProject
                 PrecoUnitario = 12.50,
                 Unidade = "Gramas"
             };
-            
+
             var p3 = new Produto()
             {
                 Nome = "Macarrão",
