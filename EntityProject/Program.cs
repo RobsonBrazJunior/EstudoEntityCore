@@ -25,7 +25,9 @@ namespace EntityProject
 
                 Console.WriteLine($"Endereço de entrega: {cliente.EnderecoDeEntrega.Logadouro}");
 
-                var produto = contexto.Produtos.Include(p => p.Compras).Where(p => p.Id == 2002).FirstOrDefault();
+                var produto = contexto.Produtos.Where(p => p.Id == 2002).FirstOrDefault();
+
+                contexto.Entry(produto).Collection(p => p.Compras).Query().Where(c => c.Preco > 10).Load();
 
                 Console.WriteLine($"Mostrando as compras do produto {produto.Nome}");
                 foreach (var item in produto.Compras)
