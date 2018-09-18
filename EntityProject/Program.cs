@@ -21,6 +21,28 @@ namespace EntityProject
                 var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
                 loggerFactory.AddProvider(SqlLoggerProvider.Create());
 
+                var cliente = contexto.Clientes.Include(c => c.EnderecoDeEntrega).FirstOrDefault();
+
+                Console.WriteLine($"Endereço de entrega: {cliente.EnderecoDeEntrega.Logadouro}");
+
+                var produto = contexto.Produtos.Include(p => p.Compras).Where(p => p.Id == 2002).FirstOrDefault();
+
+                Console.WriteLine($"Mostrando as compras do produto {produto.Nome}");
+                foreach (var item in produto.Compras)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+        }
+
+        private static void ExibeProdutosDaPromocao()
+        {
+            using (var contexto = new LojaContext())
+            {
+                var serviceProvider = contexto.GetInfrastructure<IServiceProvider>();
+                var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
+                loggerFactory.AddProvider(SqlLoggerProvider.Create());
+
                 var promocao = contexto.Promocoes.Include(p => p.Produtos).ThenInclude(pp => pp.Produto).FirstOrDefault();
                 Console.WriteLine("\nMostrando os produtos da promoção...");
                 foreach (var item in promocao.Produtos)
