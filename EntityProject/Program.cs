@@ -27,6 +27,10 @@ namespace EntityProject
             
             using (var contexto = new LojaContext())
             {
+                var serviceProvider = contexto.GetInfrastructure<IServiceProvider>();
+                var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
+                loggerFactory.AddProvider(SqlLoggerProvider.Create());
+
                 contexto.Clientes.Add(cliente);
                 contexto.SaveChanges();
             }
